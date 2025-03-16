@@ -1,0 +1,232 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ctex}
+
+\title{Homework 1}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{1}
+\subsection*{a}
+\[
+E[Z_t] = E[5 + 2t + X_t] = 5 + 2t + E[X_t] = 5 + 2t
+\]
+
+\subsection*{b}
+\[
+\begin{aligned}
+\text{Cov}(Z_t, Z_{t+k}) &= \text{Cov}(5 + 2t + X_t, 5 + 2(t+k) + X_{t+k}) \\
+&= \text{Cov}(X_t, X_{t+k}) \\
+&= \gamma_k
+\end{aligned}
+\]
+
+\subsection*{c}
+不平稳，因为均值函数5+2t依赖于时间t
+
+\section*{2}
+\subsection*{a}
+均值：
+\[
+E(Z_t) = E(a_t) - \theta E(a_{t-1}) = 0 - \theta \sigma_a^2 = -\theta \sigma_a^2
+\]
+当 $k=0$ 时：
+
+$Cov(Z_t, Z_{t+k}) = Var(Z_t) = Var(a_t) + \theta^2 Var(a_{t-1}) = \sigma_a^2 + 2\theta^2 \sigma_a^4 $
+
+
+当 $k \neq 0$ 时：
+
+由于 $\{a_t\}$ 独立，
+$Z_t$ 和 $Z_{t+k}$ 无重叠项，
+\[
+\text{Cov}(Z_t, Z_{t+k}) = 0
+\]
+
+\subsection*{b}
+均值：
+
+\[
+E(Z_t) = -\theta \sigma_a^2
+\]
+为定值。且
+\[
+\gamma(k) 仅与 k 有关，与时间 t 无关。
+\]故 $Z_t$ 是平稳的。
+
+\section*{3}
+\subsection*{a}
+是
+
+$\{a_t\}$ 独立同分布，均值为0。
+方差：
+\[
+\text{Var}(Z_t) = 2\sigma_a^2 = 2
+\]
+故ACVF
+\[
+\text{Cov}(Z_t, Z_{t+k})
+\]
+仅当 $k=0, \pm2$ 时非零，且仅依赖 $k$。
+
+\subsection*{b}
+是
+
+$\{X_t\}$ 平稳，线性变换后均值仍为0。
+ACVF 依赖 $\{X_t\}$ 的 ACVF，仅与 $k$ 有关。
+
+\subsection*{c}
+否
+
+$\{a_t\}$ 的分布为 $f(x) = 1.5x^{-2.5} \ (x \geq 1)$，由于二阶矩发散，其方差无限大。
+故 $Z_t$ 的方差无限。
+
+\subsection*{d}
+否
+
+\[
+E(Z_t) = 0.5^t
+\]
+随时间衰减至0，非常数。
+
+\subsection*{e}
+是
+
+\[
+E(Z_t) = (-1)^t E(X) = 0
+\]
+方差为
+\[
+\text{Var}(Z_t) = \text{Var}(X) = 1
+\]
+故ACVF
+\[
+\text{Cov}(Z_t, Z_{t+k}) = (-1)^{2t+k} \text{Var}(X) = (-1)^k
+\]
+仅依赖 $k$。
+
+\subsection*{f}
+是
+
+\[
+E[(-1)^{Y_t}] = e^{-2}
+\]
+但 $E(X_t) = 0$，故 $E(Z_t) = 0$。
+故ACVF
+\[
+\text{Cov}(Z_t, Z_{t+k}) = e^{-4} \gamma_k \ (k \neq 0), \ \text{Var}(Z_t) = \gamma_0
+\]
+仅依赖 $k$，故平稳。
+
+\section*{4}
+\subsection*{a}
+\[
+\begin{aligned}
+\gamma_0 &= (1 + 0.25)\sigma_a^2 = 1.25\sigma_a^2 \\
+\gamma_1 &= -0.5\sigma_a^2 \\
+\rho_1 &=  \frac{-0.5\sigma_a^2}{1.25\sigma_a^2} = -0.4 \\
+\rho_k &= 0 \quad (\lvert k \rvert > 1)
+\end{aligned}
+\]
+
+\subsection*{b}
+\[
+\begin{aligned}
+\gamma_0 &= (1 + 1 + 0.25)\sigma_a^2 = 2.25\sigma_a^2 \\
+\gamma_1 &= -1.5\sigma_a^2 \\
+\gamma_2 &= 0.5\sigma_a^2 \\
+\rho_1  &= \frac{-1.5\sigma_a^2}{2.25\sigma_a^2} = -\frac{2}{3} \\
+\rho_2 &=  \frac{0.5\sigma_a^2}{2.25\sigma_a^2} = \frac{2}{9} \\
+\rho_k &= 0 \quad (\lvert k \rvert > 2)
+\end{aligned}
+\]
+
+\subsection*{c}
+\[
+\begin{aligned}
+\gamma_0 &= (1 + 0.25 + 1 + 9)\sigma_a^2 = 11.25\sigma_a^2 \\
+\gamma_1 &= -3\sigma_a^2 \\
+\gamma_2 &= 0.5\sigma_a^2 \\
+\gamma_3 &= 3\sigma_a^2 \\
+\rho_1 &=  \frac{-3\sigma_a^2}{11.25\sigma_a^2} = 12/ \\
+\rho_2 &=  \frac{0.5\sigma_a^2}{11.25\sigma_a^2} =\frac{2}{45} \\
+\rho_3 &=  \frac{3\sigma_a^2}{11.25\sigma_a^2} = \frac{4}{15} \\
+\rho_k &= 0 \quad (\lvert k \rvert > 3)
+\end{aligned}
+\]
+
+\subsection*{d}
+\[
+\begin{aligned}
+Z_t &= (1 - 1.2B + 0.5B^2)a_t \\
+\gamma_0 &= (1 + 1.44 + 0.25)\sigma_a^2 = 2.69\sigma_a^2 \\
+\gamma_1 &= -1.8\sigma_a^2 \\
+\gamma_2 &= 0.5\sigma_a^2 \\
+\rho_1 &=  \frac{-1.8\sigma_a^2}{2.69\sigma_a^2} =\frac{180}{269}  \\
+\rho_2 &=  \frac{0.5\sigma_a^2}{2.69\sigma_a^2} =\frac{50}{269}  \\
+\rho_k &= 0 \quad (\lvert k \rvert > 2)
+\end{aligned}
+\]
+
+\section*{5}    
+特征方程：
+\[
+r^2 - r - \phi = 0
+\]
+根为
+\[
+r = \frac{1 \pm \sqrt{1 + 4\phi}}{2}
+\]
+
+复数根：当
+\[
+1 + 4\phi < 0 \quad (\phi < -\frac{1}{4})
+\]
+有
+\[
+|\phi| < 1 \implies \phi > -1
+\]
+
+实数根：当
+\[
+\phi \geq -\frac{1}{4}
+\]
+要求根绝对值小于1，解得
+\[
+-1 < \phi < 0
+\]
+
+\section*{6}
+
+$\rho_1$ 和 $\rho_2$ 满足 :
+\[
+\begin{cases}
+\rho_1 = \phi_1 + \phi_2 \rho_1 \\
+\rho_2 = \phi_1 \rho_1 + \phi_2
+\end{cases}
+\]
+解得：
+\[
+\rho_1 = \frac{\phi_1}{1 - \phi_2}, \quad \rho_2 = \frac{\phi_1^2}{1 - \phi_2} + \phi_2
+\]
+代入所需证式，化简得：
+\[
+|\phi_1| < 1 - \phi_2
+\]
+又由AR(2)过程的平稳性，有
+\[
+\begin{cases}
+\phi_2 + \phi_1 < 1 \\
+\phi_2 - \phi_1 < 1 \\
+\end{cases}
+\]
+故上述条件满足，得证。
+
+
+\end{document}

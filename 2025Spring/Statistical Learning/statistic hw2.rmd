@@ -1,0 +1,227 @@
+---
+title: "Statistical hw2"
+author: "全金"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: false
+    toc_depth: 3
+header-includes:
+  - \usepackage[UTF8]{ctex}
+date: "2025-03-16"
+---
+
+# 3
+
+## (a)
+
+iii
+$$
+\begin{aligned}
+\text{Salary} &= 50 + 20 \cdot \text{GPA} + 0.07 \cdot \text{IQ} + 35 \cdot \text{Level} \\
+&\quad + 0.01 \cdot (\text{GPA} \times \text{IQ}) - 10 \cdot (\text{GPA} \times \text{Level})
+\end{aligned}
+$$
+
+- College
+$$
+\begin{aligned}
+\text{Salary}_{\text{College}} &= 50 + 20\text{GPA} + 0.07\text{IQ} + 35(1) \\
+&\quad + 0.01(\text{GPA} \times \text{IQ}) - 10(\text{GPA} \times 1) \\
+&= 85 + 10\text{GPA} + 0.07\text{IQ} + 0.01(\text{GPA} \times \text{IQ})
+\end{aligned}
+$$
+
+- High School
+$$
+\begin{aligned}
+\text{Salary}_{\text{HS}} &= 50 + 20\text{GPA} + 0.07\text{IQ} + 0.01(\text{GPA} \times \text{IQ})
+\end{aligned}
+$$
+
+$$
+\text{Salary}_{\text{College}} - \text{Salary}_{\text{HS}} = 35 - 10\text{GPA}
+$$
+
+- When $35 - 10\text{GPA} > 0 \implies \text{GPA} < 3.5$, college graduates earn higher salaries.
+- When $\text{GPA} > 3.5$, high school graduates earn higher salaries.
+
+
+---
+
+## (b)
+
+```{r}
+beta0 <- 50
+beta1 <- 20
+beta2 <- 0.07
+beta3 <- 35
+beta4 <- 0.01
+beta5 <- -10
+
+GPA <- 4.0
+IQ <- 110
+Level <- 1
+
+salary <- beta0 + 
+          beta1 * GPA + 
+          beta2 * IQ + 
+          beta3 * Level + 
+          beta4 * (GPA * IQ) + 
+          beta5 * (GPA * Level)
+
+cat("Salary:", round(salary, 1), "kUSD")
+```
+## (c)
+不对。系数大小不能直接推断统计显著性，需看其标准误和 p 值。
+
+# 4
+
+## (a)
+
+训练：三次回归小于线性回归
+三次模型包含更多参数，过拟合训练数据，训练 RSS 会更低。
+
+## (b)
+
+测试：线性小于三次。
+三次回归可能过拟合。
+
+## (c)
+
+三次回归更低，参数更多更灵活。
+
+## (d)
+
+无法判断。若更接近线性则线性更小，若高度非线性则三次更小。
+
+# 9
+
+## (a)
+```{r}
+
+library(ISLR2)
+data(Auto)
+pairs(Auto[, -9])
+```
+
+## (b) 
+
+
+```{r}
+
+cor_matrix <- cor(Auto[, -9])
+print(cor_matrix)
+```
+
+## (c)
+
+```{r}
+model <- lm(mpg ~ . - name, data = Auto)
+summary(model)
+```
+i:是的，预测变量整体与响应变量mpg之间存在显著关系。
+
+
+ii:在显著性水平α=0.05下，以下预测变量的p值小于0.05，具有统计显著性：
+displacement，weight，year，origin。
+
+
+iii:表示在其他变量不变的情况下，汽车的生产年份每增加1年，
+mpg平均增加约0.75英里每加仑，说明随着时间推移，汽车的燃油效率有显著提升。
+ 
+
+
+## (d) 
+
+```{r}
+par(mfrow = c(2, 2))
+plot(model)
+```
+如图，残差图有明显离群点，杠杆图有异常高杠杆作用点。
+
+## (e) 
+
+```{r}
+model_interaction <- lm(mpg ~ weight * year, data = Auto)
+summary(model_interaction)
+```
+p-value < 2.2e-16远远小于0.05，说明交互项weight:year具有统计显著性。
+
+## (f) 
+
+```{r}
+model_log <- lm(mpg ~ log(weight) + sqrt(horsepower), data = Auto)
+summary(model_log)
+model_log <- lm(mpg ~ sqrt(weight) + displacement + year, data = Auto)
+summary(model_log)
+model_log <- lm(mpg ~ (weight)^2 + displacement + year, data = Auto)
+summary(model_log)
+```
+p-value均小于 2.2e-16
+
+# 13
+
+## (a)-(c)
+
+```{r}
+set.seed(1)
+x <- rnorm(100)
+eps <- rnorm(100, sd = sqrt(0.25))
+y <- -1 + 0.5 * x + eps
+```
+y 的长度为 100， $\beta_0 = -1$，$\beta_1 = 0.5$。
+
+## (d)-(f)
+
+```{r}
+plot(x, y, main = "Scatterplot of X vs Y")
+model_linear <- lm(y ~ x)
+summary(model_linear)
+abline(model_linear, col = "red")
+abline(a = -1, b = 0.5, col = "blue")
+legend("topleft", legend = c("Least Squares", "Population"), col = c("red", "blue"), lty = 1)
+```
+
+
+
+## (g)
+
+```{r}
+model_quad <- lm(y ~ x + I(x^2))
+summary(model_quad)
+```
+不能
+二次项系数 p 值 = 0.164，说明二次项预测作用不显著，且未提升模型解释力或减少残差，因此未提高拟合度。
+
+
+## (h)
+
+```{r}
+eps_low <- rnorm(100, 0, sqrt(0.1))  # sd = 0.316
+y_low <- -1 + 0.5 * x + eps_low
+model_low <- lm(y_low ~ x)
+summary(model_low)
+```
+R^2提高，模型解释力提高，残差波动减小。
+
+## (i)
+
+```{r}
+eps_high <- rnorm(100, 0, sqrt(0.5))  # sd = 0.707
+y_high <- -1 + 0.5 * x + eps_high
+model_high <- lm(y_high ~ x)
+summary(model_high)
+```
+R^2下降，模型解释力降低，残差波动增大。
+
+
+## (j)
+
+
+```{r}
+confint(model_linear)          
+confint(model_low)      
+confint(model_high)    
+```
+噪声水平直接影响置信区间的宽度和模型的解释能力，但不会引入估计偏差。在所有噪声条件下，线性回归均能有效识别X与Y的显著关系，体现了模型对噪声的鲁棒性。

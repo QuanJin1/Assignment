@@ -1,0 +1,140 @@
+---
+title: "statistical hw1"
+author: "全金"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: false
+    toc_depth: 3
+header-includes:
+  - \usepackage[UTF8]{ctex}
+date: "2025-03-10"
+---
+# (1)
+## (a) 更好，大样本有助于训练复杂模型，避免过拟合。
+## (b)光滑度低好，变量数大，样本数少时光滑模型不稳定，容易过拟合。
+## (c) 更好,非线性适合光滑模型。
+## (d) 光滑度低好，噪声大容易过拟合。
+
+# (3)
+## (a)
+      平方偏差: 单调递减。
+      方差: 单调递增。
+      训练误差: 单调递减至接近零。
+      测试误差: 先减后增。
+      贝叶斯误差: 水平直线（常数）。
+## (b)
+      平方偏差：光滑度升高时，系统性拟合误差减小。
+      方差：高维拟合方法对噪声敏感。
+      训练误差：逐渐拟合直至完全过拟合。
+      测试误差：逐渐拟合直至完全过拟合。
+      贝叶斯误差：数据本身噪声决定，与模型无关。
+# (8)
+## (a)
+```{r}
+library(ggplot2)
+library(ISLR2)
+set.seed(123)
+```
+```{r}
+college=read.csv("College.csv")
+```
+## (b)
+```{r}
+rownames(college)=college[,1]
+#fix(college)
+A=college
+college=college[,-c(1,2)]
+#fix(college)
+```
+## (c)
+
+```markdown
+### (i)
+
+```{r}
+summary(college)
+```
+```markdown
+### (ii)
+
+```{r}
+pairs(college[,1:10])
+```
+```markdown
+### (iii)
+
+```{r}
+boxplot(Outstate~Private,data =A,xlab ="Private",ylab="Outstate",main="Private-OUtside")
+```
+```markdown
+### (iv)
+
+```{r}
+Elite=rep("No",nrow(college))
+Elite[college$Top10perc>50]="Yes"
+Elite=as.factor(Elite)
+college=data.frame(college ,Elite)
+boxplot(Outstate ~ Elite, data = college,xlab = "Elite", ylab = "Outstate",main="Elite-Outside") 
+```
+```markdown
+### (v)
+
+```{r}
+par(mfrow=c(2,2))
+hist(college$Apps, breaks=30, main="Apps")
+hist(college$Grad.Rate, breaks=20, main="Grad.Rate")
+hist(college$Expend, breaks=50, main="Expand")
+hist(college$S.F.Ratio, breaks=40, main="S.F.Ratio")
+```
+```markdown
+### (vi)
+
+通过(iii)可看出，私立学校的学费普遍比公立学校高出$5000左右。
+通过(iv)可看出，Top10%学校的学费也普遍比公立学校高$7000左右。
+通过(v)可看出，学校的申请数量绝大多数在10000以内，极少超过20000份,
+毕业率大致都在50%-80%左右，大学教育支出大部分都在$10000左右，师生率在13%左右。
+```
+
+# (10)
+## (a)
+```{r}
+library(MASS)
+#Boston
+#?Boston
+```
+有506行，14列，每一行代表一个房子，每一列代表房子的一个指标。
+
+## (b)
+```{r}
+pairs(Boston[, c("crim", "rm", "lstat", "medv")])
+```
+medv和lsat呈负相关，rm和medv呈正相关。
+## (c)
+犯罪率和交通便利程度，税收比例呈正相关，和地方房价呈负相关。
+## (d)
+```{r}
+pairs(Boston[, c("crim", "tax", "ptratio", "dis")])
+```
+Boston郊外犯罪率不会特别高，反而是越靠近市中心越高；税率和师生比与郊区与否关系不大。
+## (e)
+```{r}
+sum(Boston$chas)
+```
+## (f)
+```{r}
+median(Boston$ptratio)
+```
+## (g)
+```{r}
+lowestmedv=Boston[which.min(Boston$medv), ]
+lowestmedv
+```
+该地区犯罪率和低收入人口比例都明显偏高，说明该地区就业情况糟糕，许多人为了谋生只能铤而走险。
+
+## (h)
+
+```{r}
+cat("房间数 >7的区域数：", sum(Boston$rm > 7), "\n")
+cat("房间数 >8的区域数：", sum(Boston$rm > 8), "\n")
+```
