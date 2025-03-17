@@ -6,3 +6,4 @@ git revert HEAD(the last one)
 git checkout hash(readonly)
 git restore file-path(restore file to last version)
 git restore --source=hash file-path(restore file to given version)
+Test gitcode with terminal
