@@ -32,11 +32,16 @@
   \usefonttheme{structurebold}  % default or try serif,  structurebold,  ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
+
 }
+
 \usepackage{pifont,amsbsy,amsmath,lmodern,subfigure,version,sidecap,fancybox,stmaryrd,mathrsfs,hyperref}
 \usepackage[english]{babel}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{etex}
+\usepackage{xeCJK}
+
 %\newcommand{\includemovie}[3]{%
 %\includemedia[%
 %activate=pagevisible, %
@@ -140,7 +145,6 @@
 %    \tableofcontents[currentsection]
 %  \end{frame}
 %}
-
 \AtBeginSection[]
 {
 \begin{frame}<beamer>{Outline}
@@ -155,6 +159,7 @@
 
 
 \begin{document}
+
 \graphicspath{{./figs/}}
 
 
@@ -190,13 +195,13 @@ Shanghai Jiao Tong University\\
 \end{frame}
 
 \begin{frame}{Various ways to measure distance}
-  \hspace*{2em}Standard Way to Measure Distance: Euclidean Distance, which is defined as
+  \hspace*{1em}Standard Way to Measure Distance: Euclidean Distance, which is defined as
 $$
 \rho(A, B) := \|A - B\| = \sqrt{(x_A - x_B)^2 + (y_A - y_B)^2}
 $$
-\hspace*{2em}It describes the shortest path between two points on a plane, as shown in \figurename～\ref{Fig1}a.\\
-\hspace*{2em}But in reality, sometimes we can't go directly from point A to point B. For example, in a city, we can only go along the streets. In this case, the distance between two points will be like \figurename～\ref{Fig1}b.\\
-\hspace*{2em}Also,sometimes we might feel the longer route "shorter" if we take a faster mode of transportation，as shown in \figurename～\ref{Fig1}c.
+\hspace*{1em}It describes the shortest path between two points on a plane, as shown in \figurename～\ref{Fig1}a.\\
+\hspace*{1em}But in reality, sometimes we can't go directly from point A to point B. For example, in a city, we can only go along the streets. In this case, the distance between two points will be like \figurename～\ref{Fig1}b.\\
+\hspace*{1em}Also,sometimes we might feel the longer route "shorter" if we take a faster mode of transportation，as shown in \figurename～\ref{Fig1}c.
 
 
   \begin{figure}[H] % [H] 表示图片固定在当前位置（需加载 float 宏包）
@@ -208,8 +213,8 @@ $$
 
 \end{frame}
 \begin{frame}{Metric Space}
-  \hspace*{2em}From the above examples, we can see that the distance in (a) and (b) have some properties in common, but the distance in (c) is different.\\
-  \hspace*{2em}In mathematics, we define a metric space as a set with a distance function that satisfies the following properties:
+  \hspace*{1em}From the above examples, we can see that the distance in (a) and (b) have some properties in common, but the distance in (c) is different.\\
+  \hspace*{1em}In mathematics, we define a metric space as a set with a distance function that satisfies the following properties:
   \begin{enumerate}[label=\roman*.]
     \item $\rho(A, B) \geq 0$
     \item $\rho(A, B) = 0$ if and only if $A = B$
@@ -219,9 +224,9 @@ $$
 \end{frame}
 
 \begin{frame}{Measure the "distance" between people}
-  \hspace*{2em}With the definition of metric space, we can difine a "distance" between people.\\
-  \hspace*{2em}We can define all your friends to be at “distance” 1 to you, then friends of your friends at “distance” 2, their friends at “distance” 3, and so on. Assuming the world is “connected”, that is, there is a chain of friends between any two people A and B, we can define $\rho$(A, B) to be the shortest “length” of such a chain. 
-  \hspace*{2em}Once again, this “distance” $\rho$ satisfies all the properties (i)–(iv) listed above, which means it is a metric. \\
+  \hspace*{1em}With the definition of metric space, we can difine a "distance" between people.\\
+  \hspace*{1em}We can define all your friends to be at “distance” 1 to you, then friends of your friends at “distance” 2, their friends at “distance” 3, and so on. Assuming the world is “connected”, that is, there is a chain of friends between any two people A and B, we can define $\rho$(A, B) to be the shortest “length” of such a chain. 
+  \hspace*{1em}Once again, this “distance” $\rho$ satisfies all the properties (i)–(iv) listed above, which means it is a metric. \\
   \begin{figure}[H] % [H] 表示图片固定在当前位置（需加载 float 宏包）
     \centering       % 图片居中
     \includegraphics[width=0.3\textwidth]{fig2.png} % 插入图片并调整宽度
@@ -231,10 +236,10 @@ $$
 \end{frame}
 
 \begin{frame}{The impossibility of an exact represantation}
-  Ideally, if we deaw a picture on a plane, with each person represented by a point, the (standard Euclidean) distance between points representing A and B should be exactly ρ(A, B).\\
-  However, this kind of exact representation is rarely possible.\\
-  For example, imagine four people A, B, C, D, such as A is a friend of everyone else, but B, C, D are not friends with each other.\\
-  In this case, $\rho(A, B) = \rho(A, C) = \rho(A, D) = 1 \text{ but } \rho(B, C) = \rho(C, D) = \rho(D, B) = 2$, which is impossible to represent in a Euclidean Space.\\
+  \hspace*{1em}Ideally, if we deaw a picture on a plane, with each person represented by a point, the (standard Euclidean) distance between points representing A and B should be exactly ρ(A, B).\\
+  \hspace*{1em}However, this kind of exact representation is rarely possible.\\
+  \hspace*{1em}For example, imagine four people A, B, C, D, such as A is a friend of everyone else, but B, C, D are not friends with each other.\\
+  \hspace*{1em}In this case, $\rho(A, B) = \rho(A, C) = \rho(A, D) = 1 \text{ but } \rho(B, C) = \rho(C, D) = \rho(D, B) = 2$, which is impossible to represent in a Euclidean Space.\\
   \begin{figure}[H] % [H] 表示图片固定在当前位置（需加载 float 宏包）
     \centering       % 图片居中
     \includegraphics[width=0.3\textwidth]{fig3.jpg} % 插入图片并调整宽度
@@ -244,18 +249,99 @@ $$
 \end{frame}
 
 \begin{frame}{Distortion}
-  Now that we can't draw an exact picture, we can try an approximate one. We can find that if we can tolerate some errors, such as changing the distance of friends to 1.2, or changing the distance of friends of friends to 1.8, we can draw such a picture.\\
-  In mathematics, drawing such a picture is actually embedding Metric Space into Euclidean Space. And the error is called Distortion, which is defined as belows: \\
-  If there are constants \( m, M > 0 \) such that
+  \hspace*{1em}Now that we can't draw an exact picture, we can try an approximate one. We can find that if we can tolerate some errors, such as changing the distance of friends to 1.2, or changing the distance of friends of friends to 1.8, we can draw such a picture.\\
+  \hspace*{1em}In mathematics, drawing such a picture is actually embedding Metric Space into Euclidean Space. And the error is called \textbf{Distortion}, which is defined as belows: \\
+  \hspace*{1em}If there are constants \( m, M > 0 \) such that
   \[
   m \rho(A, B) \leq | f(A) - f(B) | \leq M \rho(A, B), \quad \forall A, B \in X,
   \]
-  where \( | f(A) - f(B) | \) is the usual length of the line segment with endpoints \( f(A) \) and \( f(B) \), we will say that the distortion of the embedding \( f \) into \( \mathbb{R}^d \) is at most \( \frac{M}{m} \).
+  where \( | f(A) - f(B) | \) is the usual length of the line segment with endpoints \( f(A) \) and \( f(B) \), we will say that the distortion of the embedding \( f \) into \( \mathbb{R}^d \) is at most \( \frac{M}{m} \).\\
+%(I don't quite understand why they choose to replace 0.98 of 1 or 2.05 of 2, in that case the triangle inequality is still not satisfied.)
+\end{frame}
+
+\begin{frame}{Previous Work}
+  \hspace*{1em}Before Theorem 5.8, there is a theorem stating that:
+  \begin{theorem}
+    Any $n$-element metric space can be embedded into $\mathbb{R}^d$ with distortion at most $C \ln n$.\\
+
+  \end{theorem} 
+    \hspace*{1em}However, this theorem is practically useless. In the former "worldwide friends distance" example, billions of people (n) means distortion will be more than 20, which means a person originally 20 friends away now looks the same as your direct friends.\\
+  \hspace*{1em}And there is noway to reduce the distortion if we insist on embedding a whole metric space.\\
 
 \end{frame}
 
+\begin{frame}{Theorem 5.8}
+   Thanks to the work of Bartal et al. in 2005, we can embedding a subset with much better distortion:\\
+    \begin{theorem}
+      There exists an absolute constant $C > 0$ such that for every $\alpha > 1$, every $n$-point metric space has a subset of size $n^{1 - \frac{C \ln(2\alpha)}{\alpha}}$ which can be embedded into $\mathbb{R}^d$ with distortion at most $\alpha$.
+    \end{theorem}
+    Here, the dimension d depends on n but the constant $C$ does not.\\
+    For example, taking $\alpha = 2$, we can embed a subset of size $n^{1 - \frac{C \ln 4}{2}} = n^{1 - \frac{C}{2}}$ with distortion at most 2.\\
+\end{frame}
+\begin{frame}{关键概念}
+ 1. 超度量空间满足强三角不等式：
+ \[
+ \forall x, y, z,\quad d(x, z) \leq \max\{d(x, y), d(y, z)\},
+ \]
+ 通常用树结构表示：节点对应簇（层次聚类），边权表示层次距离（如父节点到子节点的距离按固定比例收缩）。\\
+ 2. \(\psi(\alpha)\) 表示从任意加权度量空间 \((X, w)\) 中找到一个满足权重条件
+\[
+\sum_{x \in Y} w(x)^{\psi} \geq \left( \sum_{x \in X} w(x) \right)^{\psi}
+\]
+且能以失真 \(\alpha\) 嵌入到超度量空间的子集 \(Y \subseteq X\) 的最小指数。\\
 
+\end{frame}
+\begin{frame}{Theorem 5.8证明思路}
+  加权Ramsey函数满足：
+\[
+\psi(\alpha) \geq 1 - C \frac{\log \alpha}{\alpha},
+\]
+  \textbf{一、分层递归构造}  
+  \vspace{0.1cm}
+  
+  \textbf{目标：} 递归分解度量空间 \( X \)，构造层次化结构逼近超度量。\\
+  \textbf{\large 二、失真细化}  
+  \vspace{0.1cm}
+  
+  \textbf{核心引理3.17：} 若 \( X \) 可 \( \alpha \)-嵌入超度量，则存在子集 \( X' \subseteq X \) 满足：
+  \[
+  \psi\left(X, \frac{\alpha}{2}\right) \geq \psi(X, \alpha) \left(1 - C'' \frac{\log \alpha}{\alpha}\right).
+  \]
+  
+  \textbf{迭代过程：}
+  \begin{itemize}
+      \item 从 \( \alpha = \Phi(X) \) 开始，逐步将失真降至目标 \( \alpha \)。
+      \item 每次迭代损失因子为 \( 1 - C'' \frac{\log \alpha}{\alpha} \)，最终累积损失可控。
+  \end{itemize}
+   \end{frame}
+    
+   \begin{frame}{Practical applications of Theorem 5.8}
+    \vspace{-0.2cm}
+    
+    \textbf{\large 1. Transportation Network Optimization}  
+    \vspace{0.1cm}
+    
+    \textbf{Problem:} Real-world path distances between cities form a metric space with high-dimensional embedding complexity.\\
+    \textbf{Example:} Extract subset \( n^{0.8} \) cities (\( \alpha=1.5 \)), embed into \( \mathbb{R}^{10} \) with distortion \( \leq 1.5 \).\\
+    \textbf{Impact:} Accelerated estimation of cross-continental routes (e.g., Beijing \(\to\) New York), reduced computational load by 60\%.\\
+    
+    \vspace{0.3cm}
+    
+    \textbf{\large 2. High-Dimensional Data Dimensionality Reduction}  
+    \vspace{0.1cm}
+    
+    \textbf{Problem:} High computational cost for distance metrics in feature spaces (images/text).\\
+    \textbf{Example:} ImageNet dataset (\( n \approx 14M \)): Extract \( n^{0.6} \approx 50K \) images, embed into \( \mathbb{R}^{50} \) (\( \alpha=2 \)) while preserving L2 similarities.\\
+    \textbf{Impact:} 20\(\times\) faster image retrieval (content-based search), feature visualization via t-SNE projection.\\
+    
 
+  \end{frame}
+  \begin{frame}{Follow-up work}
+     Thanks to the follow-up work of Mendel, M., Naor, A.,they showed that we can take an even
+larger subset of size \( n^{1 - C/\alpha} \) .\\ And this last result is optimal up to the value of the constant C.
+  \end{frame}
+
+  
 \begin{frame}
  
     {\Large \cbf Thank you for your attention \& questions! }
