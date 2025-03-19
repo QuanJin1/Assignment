@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.11)  20 MAR 2025 05:58
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.11)  20 MAR 2025 06:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1149,12 +1149,12 @@ Package rerunfilecheck Info: File `5.8.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29159 strings out of 473832
- 628327 string characters out of 5729481
- 1043736 words of memory out of 5000000
- 51594 multiletter control sequences out of 15000+600000
+ 29117 strings out of 473832
+ 625163 string characters out of 5729481
+ 1042736 words of memory out of 5000000
+ 51552 multiletter control sequences out of 15000+600000
  573991 words of font info for 86 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,11n,123p,498b,497s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on 5.8.xdv (13 pages, 82940 bytes).
+Output written on 5.8.xdv (13 pages, 82088 bytes).

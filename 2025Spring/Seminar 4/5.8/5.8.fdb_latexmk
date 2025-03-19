@@ -1,11 +1,11 @@
 # Fdb version 4
-["xdvipdfmx"] 1742421520.82264 "5.8.xdv" "5.8.pdf" "5.8" 1742421521.10571 0
-  "5.8.xdv" 1742421520.77693 82940 c54a317ba1b96ad2d4efa78a6acff85e "xelatex"
+["xdvipdfmx"] 1742421688.28965 "5.8.xdv" "5.8.pdf" "5.8" 1742421688.58524 0
+  "5.8.xdv" 1742421688.24247 82088 b55719c6c00ba0c8e6e3dff8d5bf0d75 "xelatex"
   (generated)
   "5.8.pdf"
   (rewritten before read)
-["xelatex"] 1742421520.06996 "/Users/quanjin/Documents/Assignment/2025Spring/Seminar 4/5.8/5.8.tex" "5.8.xdv" "5.8" 1742421521.10404 0
-  "/Users/quanjin/Documents/Assignment/2025Spring/Seminar 4/5.8/5.8.tex" 1742421519.97418 14336 d292f6f5e10dc11338e369590d5004c8 ""
+["xelatex"] 1742421687.5273 "/Users/quanjin/Documents/Assignment/2025Spring/Seminar 4/5.8/5.8.tex" "5.8.xdv" "5.8" 1742421688.58369 0
+  "/Users/quanjin/Documents/Assignment/2025Spring/Seminar 4/5.8/5.8.tex" 1742421687.42596 14337 2b0e0442f808eadaf9224b5962c0a7dc ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -238,10 +238,10 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt" 1741659533 5639817 55c5ef18e398a6d754c89a297bfb57aa ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "5.8.aux" 1742421520.77593 3027 d4ac805d9233b25d63777b8fe28100d7 "xelatex"
-  "5.8.nav" 1742421520.77683 1388 37fb167c90003b6656a249083ce3750a "xelatex"
-  "5.8.out" 1742421520.64395 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
-  "5.8.tex" 1742421519.97418 14336 d292f6f5e10dc11338e369590d5004c8 ""
+  "5.8.aux" 1742421688.24147 3027 d4ac805d9233b25d63777b8fe28100d7 "xelatex"
+  "5.8.nav" 1742421688.24237 1388 37fb167c90003b6656a249083ce3750a "xelatex"
+  "5.8.out" 1742421688.11042 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
+  "5.8.tex" 1742421687.42596 14337 2b0e0442f808eadaf9224b5962c0a7dc ""
   "figs/fig1.png" 1742406988.32255 70517 f16f8fd446b2b6a4f87fdde8cb772b57 ""
   "figs/fig2.png" 1742409009.82029 77537 92719d4284a2ced2d53760619c4b4fc2 ""
   "figs/fig3.jpg" 1742410021.82049 131338 ac6d1ae00949c998977fd3610d6820b9 ""
