@@ -167,7 +167,7 @@
 \thispagestyle{empty}
 
 \begin{frame}
-\title{\cbf Theory 5.8: Embedding Large Subsets of Finite Metric Spaces into
+\title{\cbf Theorem 5.8: Embedding Large Subsets of Finite Metric Spaces into
 Euclidean Space}
 \author[Division of Mathematical Sciences]{{\bf Quan Jin}}
 \institute{School of Mathematical Sciences\\
@@ -195,13 +195,13 @@ Shanghai Jiao Tong University\\
 \end{frame}
 
 \begin{frame}{Various ways to measure distance}
-  \hspace*{1em}Standard Way to Measure Distance: Euclidean Distance, which is defined as
+  \hspace*{1em}Standard way to measure distance: Euclidean distance, which is defined as
 $$
 \rho(A, B) := \|A - B\| = \sqrt{(x_A - x_B)^2 + (y_A - y_B)^2}
 $$
-\hspace*{1em}It describes the shortest path between two points on a plane, as shown in \figurename～\ref{Fig1}a.\\
-\hspace*{1em}But in reality, sometimes we can't go directly from point A to point B. For example, in a city, we can only go along the streets. In this case, the distance between two points will be like \figurename～\ref{Fig1}b.\\
-\hspace*{1em}Also,sometimes we might feel the longer route "shorter" if we take a faster mode of transportation，as shown in \figurename～\ref{Fig1}c.
+\hspace*{1em}It describes the shortest path between two points on a plane, as shown in Figure1(a).\\
+\hspace*{1em}But in reality, sometimes we can't go directly from point A to point B. For example, in a city, we can only go along the streets. In this case, the distance between two points will be like Figure1(b).\\
+\hspace*{1em}Also, sometimes we might feel the longer route "shorter" if we take a faster kind of transportation，as shown in Figure1(c).
 
 
   \begin{figure}[H] % [H] 表示图片固定在当前位置（需加载 float 宏包）
@@ -224,8 +224,8 @@ $$
 \end{frame}
 
 \begin{frame}{Measure the "distance" between people}
-  \hspace*{1em}With the definition of metric space, we can difine a "distance" between people.\\
-  \hspace*{1em}We can define all your friends to be at “distance” 1 to you, then friends of your friends at “distance” 2, their friends at “distance” 3, and so on. Assuming the world is “connected”, that is, there is a chain of friends between any two people A and B, we can define $\rho$(A, B) to be the shortest “length” of such a chain. 
+  \hspace*{1em}With the definition of metric space, we can define a "distance" between people.\\
+  \hspace*{1em}We can define all your friends to be at “distance” 1 to you, then friends of your friends at “distance” 2, their friends at “distance” 3, and so on. Assuming the world is “connected”, that is, there is a chain of friends between any two people A and B, we can define $\rho$(A, B) to be the shortest “length” of such a chain. \\
   \hspace*{1em}Once again, this “distance” $\rho$ satisfies all the properties (i)–(iv) listed above, which means it is a metric. \\
   \begin{figure}[H] % [H] 表示图片固定在当前位置（需加载 float 宏包）
     \centering       % 图片居中
@@ -235,8 +235,8 @@ $$
 \end{figure}
 \end{frame}
 
-\begin{frame}{The impossibility of an exact represantation}
-  \hspace*{1em}Ideally, if we deaw a picture on a plane, with each person represented by a point, the (standard Euclidean) distance between points representing A and B should be exactly ρ(A, B).\\
+\begin{frame}{The impossibility of an exact representation}
+  \hspace*{1em}Ideally, if we draw a picture on a plane, with each person represented by a point, the (standard Euclidean) distance between points representing A and B should be exactly ρ(A, B).\\
   \hspace*{1em}However, this kind of exact representation is rarely possible.\\
   \hspace*{1em}For example, imagine four people A, B, C, D, such as A is a friend of everyone else, but B, C, D are not friends with each other.\\
   \hspace*{1em}In this case, $\rho(A, B) = \rho(A, C) = \rho(A, D) = 1 \text{ but } \rho(B, C) = \rho(C, D) = \rho(D, B) = 2$, which is impossible to represent in a Euclidean Space.\\
@@ -271,20 +271,20 @@ $$
 \end{frame}
 
 \begin{frame}{Theorem 5.8}
-   Thanks to the work of Bartal et al. in 2005, we can embedding a subset with much better distortion:\\
+  \hspace*{1em}Thanks to the work of Bartal et al. in 2005, we can embedding a subset with much better distortion:\\
     \begin{theorem}
       There exists an absolute constant $C > 0$ such that for every $\alpha > 1$, every $n$-point metric space has a subset of size $n^{1 - \frac{C \ln(2\alpha)}{\alpha}}$ which can be embedded into $\mathbb{R}^d$ with distortion at most $\alpha$.
     \end{theorem}
-    Here, the dimension d depends on n but the constant $C$ does not.\\
-    For example, taking $\alpha = 2$, we can embed a subset of size $n^{1 - \frac{C \ln 4}{2}} = n^{1 - \frac{C}{2}}$ with distortion at most 2.\\
+    \hspace*{1em}Here, the dimension d depends on n but the constant $C$ does not.\\
+    \hspace*{1em}For example, taking $\alpha = 2$, we can embed a subset of size $n^{1 - \frac{C \ln 4}{2}} = n^{1 - \frac{C}{2}}$ with distortion at most 2.\\
 \end{frame}
 \begin{frame}{关键概念}
- 1. 超度量空间满足强三角不等式：
+ 1. 超度量空间：满足强三角不等式：
  \[
  \forall x, y, z,\quad d(x, z) \leq \max\{d(x, y), d(y, z)\},
  \]
  通常用树结构表示：节点对应簇（层次聚类），边权表示层次距离（如父节点到子节点的距离按固定比例收缩）。\\
- 2. \(\psi(\alpha)\) 表示从任意加权度量空间 \((X, w)\) 中找到一个满足权重条件
+ 2. 加权Ramsey函数\(\psi(\alpha)\) 表示从任意加权度量空间 \((X, w)\) 中找到一个满足权重条件
 \[
 \sum_{x \in Y} w(x)^{\psi} \geq \left( \sum_{x \in X} w(x) \right)^{\psi}
 \]
@@ -292,7 +292,7 @@ $$
 
 \end{frame}
 \begin{frame}{Theorem 5.8证明思路}
-  加权Ramsey函数满足：
+  Theorem 5.8的等价命题为：
 \[
 \psi(\alpha) \geq 1 - C \frac{\log \alpha}{\alpha},
 \]
@@ -337,8 +337,8 @@ $$
 
   \end{frame}
   \begin{frame}{Follow-up work}
-     Thanks to the follow-up work of Mendel, M., Naor, A.,they showed that we can take an even
-larger subset of size \( n^{1 - C/\alpha} \) .\\ And this last result is optimal up to the value of the constant C.
+    \hspace*{1em}Thanks to the follow-up work of Mendel, M., Naor, A.,they showed that we can take an even
+larger subset of size \( n^{1 - C/\alpha} \) .\\ \hspace*{1em}And this last result is optimal up to the value of the constant $C$.
   \end{frame}
 
   
