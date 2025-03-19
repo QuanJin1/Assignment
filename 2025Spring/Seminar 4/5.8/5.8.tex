@@ -1,0 +1,265 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+\mode<presentation>
+{
+  \usetheme{default}      % or try Darmstadt,  Madrid,  Warsaw,  ...
+  %\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}   %good
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+  \usecolortheme{beaver} % or try albatross,  beaver,  crane,  ...
+  \usefonttheme{structurebold}  % default or try serif,  structurebold,  ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+}
+\usepackage{pifont,amsbsy,amsmath,lmodern,subfigure,version,sidecap,fancybox,stmaryrd,mathrsfs,hyperref}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{enumitem}
+%\newcommand{\includemovie}[3]{%
+%\includemedia[%
+%activate=pagevisible, %
+%deactivate=pageclose, %
+%addresource=./figs/, %
+%flashvars={%
+%src=/figs/ % same path as in addresource!
+%&autoPlay=true % default: false; if =true,  automatically starts playback after activation (see option Ôactivation)Õ
+%&loop=true % if loop=true,  media is played in a loop
+%&controlBarAutoHideTimeout=0 %  time span before auto-hide
+%}%
+%]{}{StrobeMediaPlayback.swf}%
+
+\usepackage{graphicx}
+\usepackage{animate}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\usepackage[utf8x]{inputenc}
+%%% Edit beamer frametitle
+\setbeamertemplate{frametitle}
+{
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0.25cm, ht=1.5em, wd=\paperwidth]{frametitle}
+        \vbox{}\vskip -2ex%
+       ~ \strut\insertframetitle\strut
+        %\vspace*{2pt}\hfill  {\includegraphics[width=0.9cm, height=0.95cm]{NTU_logo}\hspace*{6pt}\vspace*{-11pt}}
+     \vspace*{-8pt}
+   \textcolor{Blue}{~~\noindent\rule[0.6ex]{\linewidth}{1pt}}
+        \vskip -2.5ex %\vskip -0.9ex%
+    \end{beamercolorbox}
+}
+\setbeamercolor{frametitle}{fg=blue, bg=White!20}
+%\setbeamercolor{section in head/foot}{bg=white, fg=blue}    % Use this to modify the color of the headline
+% \setbeamerfont{frametitle}{family=\sffamily, series=\bf, size=\Large}
+%% new added
+\setbeamertemplate{sections/subsections in toc}[ball]
+%%
+
+\setbeamertemplate{footline}{
+{\rlap{\textit{ }}\hfill\hfill\llap{\sc\insertframenumber\hspace{0.15cm}}}
+\vspace{0.1cm}
+}
+
+
+ \setbeamercolor{itemize item}{fg=Red}
+\setbeamertemplate{itemize items}[circle]
+ \setbeamercolor{itemize subitem}{fg=Red}
+\setbeamertemplate{itemize subitem}[ball]
+
+\usepackage{xcolor}
+\usefonttheme[onlymath]{serif}
+
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{remark}
+\newtheorem{rem}{\bf Remark}[section]
+
+\newcommand{\highlight}[1]{%
+  \colorbox{Green!10}{$\displaystyle#1$}}
+
+%%% Self-defined commands --------------------
+\def \er {{\bs e}_r}
+\newcommand{\ri} {{\rm i}}
+%\newcommand{\bs}[1]{\mathbf{#1}}
+\def \cb {\color{blue}}
+\def \cred {\color{red}}
+\def \cbf {\color{blue}\bf}
+\def \credf {\color{red}\bf}
+\definecolor{ligreen}{rgb}{0.0,0.3,0.0}
+\def \cg {\color{ligreen}}
+\def \cgf {\color{ligreen}\bf}
+
+\def \liuhao {\footnotesize}
+%\def \qihao  {\tiny}
+\def \qihao  {\scriptsize}
+\newcommand{\tensor}[1]{\overline {\overline{#1}}}
+
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>
+%    \frametitle{Outline}
+%    \tableofcontents[currentsection, currentsubsection]
+%  \end{frame}
+%}
+
+\thispagestyle{empty}
+
+
+
+
+
+
+%% Zhiguo added to modify the table of contents and hyperref
+%\definecolor{links}{HTML}{2A1B81}
+%\hypersetup{colorlinks, linkcolor=black, urlcolor=}
+%\setbeamercolor{section in head/foot}{bg=blue, fg=white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\AtBeginSection[]
+%{
+%  \begin{frame}
+%    \frametitle{Table of Contents}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>{Outline}
+\tableofcontents[currentsection, currentsubsection, 
+    hideothersubsections, 
+    sectionstyle=show/shaded, 
+]
+\end{frame}
+}
+
+
+
+
+\begin{document}
+\graphicspath{{./figs/}}
+
+
+
+\thispagestyle{empty}
+
+\begin{frame}
+\title{\cbf Theory 5.8: Embedding Large Subsets of Finite Metric Spaces into
+Euclidean Space}
+\author[Division of Mathematical Sciences]{{\bf Quan Jin}}
+\institute{School of Mathematical Sciences\\
+Shanghai Jiao Tong University\\
+\href{mailto:remotable@sjtu.edu.cn}{\color{ligreen}\textsf{remotable@sjtu.edu.cn}}
+%\href{mailto:lilian@utu.edu.sg}{\color{blue}\textsf{http://www.ntu.edu.sg/home/lilian}}
+}
+%\author{Ying Gu, ~ Xue-Cheng Tai and Yuying Shi}
+%	Cameron Bracken\\
+	{\it  Presentation on  March 20,  2025}\\
+%}
+%\vspace*{0.25cm}
+\date{
+%  \begin{center}
+%   \includegraphics[width=.4\linewidth, height=.12\linewidth]{Purduelogo.jpg} %{NTU_HighRes}
+%  \end{center}
+
+
+
+}
+\titlepage
+
+%\vspace*{-1cm}
+%\cb {~~}
+\end{frame}
+
+\begin{frame}{Various ways to measure distance}
+  \hspace*{2em}Standard Way to Measure Distance: Euclidean Distance, which is defined as
+$$
+\rho(A, B) := \|A - B\| = \sqrt{(x_A - x_B)^2 + (y_A - y_B)^2}
+$$
+\hspace*{2em}It describes the shortest path between two points on a plane, as shown in \figurename～\ref{Fig1}a.\\
+\hspace*{2em}But in reality, sometimes we can't go directly from point A to point B. For example, in a city, we can only go along the streets. In this case, the distance between two points will be like \figurename～\ref{Fig1}b.\\
+\hspace*{2em}Also,sometimes we might feel the longer route "shorter" if we take a faster mode of transportation，as shown in \figurename～\ref{Fig1}c.
+
+
+  \begin{figure}[H] % [H] 表示图片固定在当前位置（需加载 float 宏包）
+      \centering       % 图片居中
+      \includegraphics[width=0.3\textwidth]{fig1.png} % 插入图片并调整宽度
+      \caption{Various ways to measure distance} % 图片标题
+      \label{Fig1}   % 图片标签（用于引用）
+  \end{figure}
+
+\end{frame}
+\begin{frame}{Metric Space}
+  \hspace*{2em}From the above examples, we can see that the distance in (a) and (b) have some properties in common, but the distance in (c) is different.\\
+  \hspace*{2em}In mathematics, we define a metric space as a set with a distance function that satisfies the following properties:
+  \begin{enumerate}[label=\roman*.]
+    \item $\rho(A, B) \geq 0$
+    \item $\rho(A, B) = 0$ if and only if $A = B$
+    \item $\rho(A, B) = \rho(B, A)$
+    \item $\rho(A, B) + \rho(B, C) \geq \rho(A, C)$ for all $A, B, C$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Measure the "distance" between people}
+  \hspace*{2em}With the definition of metric space, we can difine a "distance" between people.\\
+  \hspace*{2em}We can define all your friends to be at “distance” 1 to you, then friends of your friends at “distance” 2, their friends at “distance” 3, and so on. Assuming the world is “connected”, that is, there is a chain of friends between any two people A and B, we can define $\rho$(A, B) to be the shortest “length” of such a chain. 
+  \hspace*{2em}Once again, this “distance” $\rho$ satisfies all the properties (i)–(iv) listed above, which means it is a metric. \\
+  \begin{figure}[H] % [H] 表示图片固定在当前位置（需加载 float 宏包）
+    \centering       % 图片居中
+    \includegraphics[width=0.3\textwidth]{fig2.png} % 插入图片并调整宽度
+    \caption{An Example of "distance" between people} % 图片标题
+    \label{Fig2}   % 图片标签（用于引用）
+\end{figure}
+\end{frame}
+
+\begin{frame}{The impossibility of an exact represantation}
+  Ideally, if we deaw a picture on a plane, with each person represented by a point, the (standard Euclidean) distance between points representing A and B should be exactly ρ(A, B).\\
+  However, this kind of exact representation is rarely possible.\\
+  For example, imagine four people A, B, C, D, such as A is a friend of everyone else, but B, C, D are not friends with each other.\\
+  In this case, $\rho(A, B) = \rho(A, C) = \rho(A, D) = 1 \text{ but } \rho(B, C) = \rho(C, D) = \rho(D, B) = 2$, which is impossible to represent in a Euclidean Space.\\
+  \begin{figure}[H] % [H] 表示图片固定在当前位置（需加载 float 宏包）
+    \centering       % 图片居中
+    \includegraphics[width=0.3\textwidth]{fig3.jpg} % 插入图片并调整宽度
+    \caption{The impossible picture} % 图片标题
+    \label{Fig3}   % 图片标签（用于引用）
+\end{figure}
+\end{frame}
+
+\begin{frame}{Distortion}
+  Now that we can't draw an exact picture, we can try an approximate one. We can find that if we can tolerate some errors, such as changing the distance of friends to 1.2, or changing the distance of friends of friends to 1.8, we can draw such a picture.\\
+  In mathematics, drawing such a picture is actually embedding Metric Space into Euclidean Space. And the error is called Distortion, which is defined as belows: \\
+  If there are constants \( m, M > 0 \) such that
+  \[
+  m \rho(A, B) \leq | f(A) - f(B) | \leq M \rho(A, B), \quad \forall A, B \in X,
+  \]
+  where \( | f(A) - f(B) | \) is the usual length of the line segment with endpoints \( f(A) \) and \( f(B) \), we will say that the distortion of the embedding \( f \) into \( \mathbb{R}^d \) is at most \( \frac{M}{m} \).
+
+\end{frame}
+
+
+
+\begin{frame}
+ 
+    {\Large \cbf Thank you for your attention \& questions! }
+   
+\end{frame}
+   
+\end{document}
