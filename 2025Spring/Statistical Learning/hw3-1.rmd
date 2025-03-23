@@ -1,0 +1,245 @@
+---
+title: "Statistical hw3"
+author: "全金"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: false
+    toc_depth: 3
+header-includes:
+  - \usepackage[UTF8]{ctex}
+date: "2025-03-24"
+---
+
+# 3
+$$
+p_k(x) = \frac{\pi_k \sigma_k^{-1} e^{-\frac{(x-\mu_k)^2}{2\sigma_k^2}}}{\sum_{l=1}^K \pi_l \sigma_l^{-1} e^{-\frac{(x-\mu_l)^2}{2\sigma_l^2}}}
+$$
+
+取对数去最大值得（忽略常数项）：
+
+$$
+\log p_k(x) \propto \log\pi_k - \frac{1}{2}\log\sigma_k^2 - \frac{(x-\mu_k)^2}{2\sigma_k^2}
+$$
+
+展开得：
+
+$$
+f_k(x) = \log\pi_k - \frac{1}{2}\log\sigma_k^2 - \frac{x^2}{2\sigma_k^2} + \frac{x\mu_k}{\sigma_k^2} - \frac{\mu_k^2}{2\sigma_k^2}
+$$
+
+因含$x^2$项，故得证。
+
+# 5
+(a) QDA训练集更优，LDA测试集更优  
+(b) QDA在训练和测试集均可能更优  
+(c) 更好，数据量更多，QDA能更好地拟合数据。
+(d) 错误：QDA可能过拟合 
+
+# 12
+(a) 对数几率：$\hat\beta_0 + \hat\beta_1x$  
+(b) 友人模型对数几率：$(\alpha_{0}^{橙}-\alpha_{0}^{苹}) + (\alpha_{1}^{橙}-\alpha_{1}^{苹})x$  
+(c) $\alpha_{0}^{橙}-\alpha_{0}^{苹}=2$, $\alpha_{1}^{橙}-\alpha_{1}^{苹}=-1$  
+(d) $\hat\beta_0=-1.8$, $\hat\beta_1=-2.6$  
+(e) 模型等价，预测一致  
+
+# 13
+(a)
+```{r}
+library(ISLR2)
+data(Weekly)
+summary(Weekly)
+str(Weekly)
+pairs(Weekly[, 1:8], main = "Scatterplot Matrix of Weekly Data")
+plot(Weekly$Year, Weekly$Volume, type = "l", 
+     xlab = "Year", ylab = "Volume", 
+     main = "Trading Volume Over Years")
+```
+
+图中可看出，成交量与年份呈强正相关。
+
+## (b)
+```{r}
+glm_full <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume,
+                data = Weekly, 
+                family = binomial)
+summary(glm_full)
+```
+图中可看出，Lag2 为显著变量.
+
+## (c)
+```{r}
+glm_probs <- predict(glm_full, type = "response")
+glm_pred <- ifelse(glm_probs > 0.5, "Up", "Down")
+conf_mat <- table(glm_pred, Weekly$Direction)
+accuracy <- mean(glm_pred == Weekly$Direction)
+
+conf_mat
+accuracy
+```
+该模型在市场实际下跌时有很大的错误预测率。总体准确率优于随机猜测。
+
+## (d)
+```{r}
+train <- Weekly$Year <= 2008
+test_data <- Weekly[!train, ]
+glm_lag2 <- glm(Direction ~ Lag2, 
+                data = Weekly, 
+                family = binomial, 
+                subset = train)
+glm_probs_test <- predict(glm_lag2, test_data, type = "response")
+glm_pred_test <- ifelse(glm_probs_test > 0.5, "Up", "Down")
+conf_mat_d <- table(glm_pred_test, test_data$Direction)
+accuracy_d <- mean(glm_pred_test == test_data$Direction)
+
+conf_mat_d
+accuracy_d
+```
+
+## (e)
+```{r}
+library(MASS)
+lda_fit <- lda(Direction ~ Lag2, data = Weekly, subset = train)
+lda_pred <- predict(lda_fit, test_data)$class
+conf_mat_e <- table(lda_pred, test_data$Direction)
+accuracy_e <- mean(lda_pred == test_data$Direction)
+
+conf_mat_e
+accuracy_e
+```
+
+## (f)
+```{r}
+qda_fit <- qda(Direction ~ Lag2, data = Weekly, subset = train)
+qda_pred <- predict(qda_fit, test_data)$class
+conf_mat_f <- table(qda_pred, test_data$Direction)
+accuracy_f <- mean(qda_pred == test_data$Direction)
+conf_mat_f
+accuracy_f
+```
+
+## (g)
+```{r}
+library(class)
+train_X <- as.matrix(Weekly$Lag2[train])
+test_X <- as.matrix(Weekly$Lag2[!train])
+train_dir <- Weekly$Direction[train]
+set.seed(123)
+knn_pred <- knn(train_X, test_X, train_dir, k = 1)
+conf_mat_g <- table(knn_pred, test_data$Direction)
+accuracy_g <- mean(knn_pred == test_data$Direction)
+conf_mat_g
+accuracy_g
+```
+
+## (h)
+```{r}
+library(e1071)
+nb_fit <- naiveBayes(Direction ~ Lag2, data = Weekly, subset = train)
+nb_pred <- predict(nb_fit, test_data)
+conf_mat_h <- table(nb_pred, test_data$Direction)
+accuracy_h <- mean(nb_pred == test_data$Direction)
+conf_mat_h
+accuracy_h
+```
+
+## (i)
+逻辑回归和 LDA 最好
+
+## (j)
+```{r}
+fit <- glm(Direction ~ Lag1, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+fit <- glm(Direction ~ Lag3, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+fit <- glm(Direction ~ Lag4, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+fit <- glm(Direction ~ Lag1 * Lag2 * Lag3 * Lag4, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+fit <- lda(Direction ~ Lag1 + Lag2 + Lag3 + Lag4, data = Weekly[train, ])
+pred <- predict(fit, Weekly[!train, ], type = "response")$class
+mean(pred == Weekly[!train, ]$Direction)
+fit <- qda(Direction ~ Lag1 + Lag2 + Lag3 + Lag4, data = Weekly[train, ])
+pred <- predict(fit, Weekly[!train, ], type = "response")$class
+mean(pred == Weekly[!train, ]$Direction)
+fit <- naiveBayes(Direction ~ Lag1 + Lag2 + Lag3 + Lag4, data = Weekly[train, ])
+pred <- predict(fit, Weekly[!train, ], type = "class")
+mean(pred == Weekly[!train, ]$Direction)
+set.seed(1)
+res <- sapply(1:30, function(k) {
+  fit <- knn(
+    Weekly[train, 2:4, drop = FALSE],
+    Weekly[!train, 2:4, drop = FALSE],
+    Weekly$Direction[train],
+    k = k
+  )
+  mean(fit == Weekly[!train, ]$Direction)
+})
+plot(1:30, res, type = "o", xlab = "k", ylab = "Fraction correct")
+(k <- which.max(res))
+fit <- knn(
+  Weekly[train, 2:4, drop = FALSE],
+  Weekly[!train, 2:4, drop = FALSE],
+  Weekly$Direction[train],
+  k = k
+)
+table(fit, Weekly[!train, ]$Direction)
+mean(fit == Weekly[!train, ]$Direction)
+```
+
+最佳结果：使用前三个滞后变量的KNN，k=26
+
+
+# 15
+## (a)
+```{r}
+Power <- function() {
+  print(2^3)
+}
+Power()
+```
+## (b)
+```{r}
+Power2 <- function(x, a) {
+  print(x^a)
+}
+```
+## (c)
+```{r}
+Power2(10, 3)
+Power2(8, 17)
+Power2(131, 3)
+```
+## (d)
+```{r}
+Power3 <- function(x, a) {
+  return(x^a)
+}
+```
+## (e)
+```{r}
+x <- 1:10
+y <- Power3(x, 2)
+plot(x, y, type = "b", 
+     xlab = "x", ylab = "x²", 
+     main = "Quadratic Function Plot", 
+     log = "y")
+```
+## (f)
+```{r}
+PlotPower <- function(x_values, a) {
+  y_values <- Power3(x_values, a)
+  plot(x_values, y_values, 
+       xlab = "x", ylab = paste("x^", a), 
+       main = paste("Power Function x^", a),
+       type = "b")
+}
+PlotPower(1:10, 3)
+```

@@ -12,3 +12,253 @@ date: "2025-03-16"
 ---
 
 # 3
+As above,
+
+$$
+p_k(x) = \frac{\pi_k\frac{1}{\sqrt{2\pi\sigma_k}} \exp(-\frac{1}{2\sigma_k^2}(x - \mu_k)^2)}
+              {\sum_{l=1}^k \pi_l\frac{1}{\sqrt{2\pi\sigma_l}} \exp(-\frac{1}{2\sigma_l^2}(x - \mu_l)^2)}
+$$
+
+Now lets derive the Bayes classifier, without assuming 
+$\sigma_1^2 = ... = \sigma_K^2$
+
+Maximizing $p_k(x)$ also maximizes any monotonic function of $p_k(X)$, and
+therefore, we can consider maximizing $\log(p_K(X))$
+
+$$
+\log(p_k(x)) = \log(\pi_k) + \log\left(\frac{1}{\sqrt{2\pi\sigma_k}}\right) - \frac{1}{2\sigma_k^2}(x - \mu_k)^2 -
+              \log\left(\sum_{l=1}^k \frac{1}{\sqrt{2\pi\sigma_l}} \pi_l \exp\left(-\frac{1}{2\sigma_l^2}(x - \mu_l)^2\right)\right)
+$$
+
+Remember that we are maximizing over $k$, and since the last term does not
+vary with $k$ it can be ignored. So we just need to maximize
+
+\begin{align}
+f &= \log(\pi_k) + \log\left(\frac{1}{\sqrt{2\pi\sigma_k}}\right) - \frac{1}{2\sigma_k^2}(x - \mu_k)^2 \\
+  &= \log(\pi_k) + \log\left(\frac{1}{\sqrt{2\pi\sigma_k}}\right) - \frac{x^2}{2\sigma_k^2} + \frac{x\mu_k}{\sigma_k^2} - \frac{\mu_k^2}{2\sigma_k^2}  \\
+\end{align}
+
+However, unlike in Q2, $\frac{x^2}{2\sigma_k^2}$ is not independent of $k$, so
+we retain the term with $x^2$, hence $f$, the Bayes’ classifier, is a
+quadratic function of $x$.
+
+# 5
+## (a)
+QDA, being a more flexible model, will always perform better on the training set, but LDA would be expected to perform better on the test set.
+## (b)
+QDA, being a more flexible model, will perform better on the training set, and we would hope that extra flexibility translates to a better fit on the test set.
+## (c)
+As $n$ increases, we would expect the prediction accuracy of QDA relative to LDA to improve as there is more data to fit to subtle effects in the data.
+## (d)
+False. QDA can overfit leading to poorer test performance.
+
+# 12
+## (a)
+The log odds is just $\hat\beta_0 + \hat\beta_1x$
+## (b)
+From 4.14, log odds of our friend's model is:
+
+$$
+(\hat\alpha_{orange0} - \hat\alpha_{apple0}) + (\hat\alpha_{orange1} - \hat\alpha_{apple1})x
+$$
+
+## (c)
+We can say that in our friend's model $\hat\alpha_{orange0} - \hat\alpha_{apple0} = 2$ and $\hat\alpha_{orange1} - \hat\alpha_{apple1} = -1$. We are unable to know the specific value of each parameter however.
+
+## (d)
+The coefficients in our model would be $\hat\beta_0 = 1.2 - 3 = -1.8$ and $\hat\beta_1 = -2 - 0.6 = -2.6$
+
+## (e)
+The models are identical with different parameterization so they should  perfectly agree.
+
+# 13
+## (a)
+```{r, message = FALSE, warning = FALSE}
+library(MASS)
+library(class)
+library(tidyverse)
+library(corrplot)
+library(ISLR2)
+library(e1071)
+```
+
+```{r}
+summary(Weekly)
+corrplot(cor(Weekly[, -9]), type = "lower", diag = FALSE, method = "ellipse")
+```
+
+Volume is strongly positively correlated with Year. Other correlations are
+week, but Lag1 is negatively correlated with Lag2 but positively correlated
+with Lag3.
+
+## (b)
+```{r}
+fit <- glm(
+  Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume,
+  data = Weekly,
+  family = binomial
+)
+summary(fit)
+```
+
+Lag2 is significant.
+
+## (c)
+```{r}
+contrasts(Weekly$Direction)
+pred <- predict(fit, type = "response") > 0.5
+(t <- table(ifelse(pred, "Up (pred)", "Down (pred)"), Weekly$Direction))
+sum(diag(t)) / sum(t)
+```
+
+The overall fraction of correct predictions is 0.56. Although logistic
+regression correctly predicts upwards movements well, it incorrectly predicts
+most downwards movements as up.
+
+## (d)
+```{r}
+train <- Weekly$Year < 2009
+
+fit <- glm(Direction ~ Lag2, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+(t <- table(ifelse(pred, "Up (pred)", "Down (pred)"), Weekly[!train, ]$Direction))
+sum(diag(t)) / sum(t)
+```
+
+## (e)
+```{r}
+fit <- lda(Direction ~ Lag2, data = Weekly[train, ])
+pred <- predict(fit, Weekly[!train, ], type = "response")$class
+(t <- table(pred, Weekly[!train, ]$Direction))
+sum(diag(t)) / sum(t)
+```
+
+## (f)
+```{r}
+fit <- qda(Direction ~ Lag2, data = Weekly[train, ])
+pred <- predict(fit, Weekly[!train, ], type = "response")$class
+(t <- table(pred, Weekly[!train, ]$Direction))
+sum(diag(t)) / sum(t)
+```
+
+## (g)
+```{r}
+fit <- knn(
+  Weekly[train, "Lag2", drop = FALSE],
+  Weekly[!train, "Lag2", drop = FALSE],
+  Weekly$Direction[train]
+)
+(t <- table(fit, Weekly[!train, ]$Direction))
+sum(diag(t)) / sum(t)
+```
+
+## (h)
+```{r}
+fit <- naiveBayes(Direction ~ Lag2, data = Weekly, subset = train)
+pred <- predict(fit, Weekly[!train, ], type = "class")
+(t <- table(pred, Weekly[!train, ]$Direction))
+sum(diag(t)) / sum(t)
+```
+
+## (i)
+Logistic regression and LDA are the best performing.
+
+## (j)
+```{r}
+fit <- glm(Direction ~ Lag1, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+
+fit <- glm(Direction ~ Lag3, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+
+fit <- glm(Direction ~ Lag4, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+
+fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+
+fit <- glm(Direction ~ Lag1 * Lag2 * Lag3 * Lag4, data = Weekly[train, ], family = binomial)
+pred <- predict(fit, Weekly[!train, ], type = "response") > 0.5
+mean(ifelse(pred, "Up", "Down") == Weekly[!train, ]$Direction)
+
+fit <- lda(Direction ~ Lag1 + Lag2 + Lag3 + Lag4, data = Weekly[train, ])
+pred <- predict(fit, Weekly[!train, ], type = "response")$class
+mean(pred == Weekly[!train, ]$Direction)
+
+fit <- qda(Direction ~ Lag1 + Lag2 + Lag3 + Lag4, data = Weekly[train, ])
+pred <- predict(fit, Weekly[!train, ], type = "response")$class
+mean(pred == Weekly[!train, ]$Direction)
+
+fit <- naiveBayes(Direction ~ Lag1 + Lag2 + Lag3 + Lag4, data = Weekly[train, ])
+pred <- predict(fit, Weekly[!train, ], type = "class")
+mean(pred == Weekly[!train, ]$Direction)
+
+set.seed(1)
+res <- sapply(1:30, function(k) {
+  fit <- knn(
+    Weekly[train, 2:4, drop = FALSE],
+    Weekly[!train, 2:4, drop = FALSE],
+    Weekly$Direction[train],
+    k = k
+  )
+  mean(fit == Weekly[!train, ]$Direction)
+})
+plot(1:30, res, type = "o", xlab = "k", ylab = "Fraction correct")
+(k <- which.max(res))
+
+fit <- knn(
+  Weekly[train, 2:4, drop = FALSE],
+  Weekly[!train, 2:4, drop = FALSE],
+  Weekly$Direction[train],
+  k = k
+)
+table(fit, Weekly[!train, ]$Direction)
+mean(fit == Weekly[!train, ]$Direction)
+```
+
+使用前三个滞后变量的KNN在调整k值为k = 26时，表现略优于使用`Lag2`的逻辑回归。
+
+# 15
+## (a)
+```{r}
+Power <- function() print(2^3)
+```
+## (b)
+```{r}
+Power2 <- function(x, a) print(x^a)
+```
+## (c)
+```{r}
+c(Power2(10, 3), Power2(8, 17), Power2(131, 3))
+```
+## (d)
+```{r}
+Power3 <- function(x, a) {
+  result <- x^a
+  return(result)
+}
+```
+## (e)
+```{r}
+plot(1:10, Power3(1:10, 2),
+  xlab = "x",
+  ylab = expression(paste("x"^"2")),
+  log = "y"
+)
+```
+## (f)
+```{r}
+PlotPower <- function(x, a, log = "y") {
+  plot(x, Power3(x, a),
+    xlab = "x",
+    ylab = substitute("x"^a, list(a = a)),
+    log = log
+  )
+}
+
+PlotPower(1:10, 3)
+```
