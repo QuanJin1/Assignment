@@ -1,0 +1,14 @@
+---
+title: "Statistical hw2"
+author: "全金"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: false
+    toc_depth: 3
+header-includes:
+  - \usepackage[UTF8]{ctex}
+date: "2025-03-16"
+---
+
+# 3
