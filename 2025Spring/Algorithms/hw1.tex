@@ -82,7 +82,7 @@ You are given a 2D discrete topographical map $A[0,\ldots,n-1;0,\ldots,m-1]$ rep
     \part Give another divide and conquer algorithm when $m=n$. Analyze its running time with a recurrence relation.\\
     \textbf{Because m=n, searching direction is still on a line, so actually (2) equals to (1).\\Algorithm: Suppose mid=n//2=m//2, compare A[mid,mid],A[mid+1,mid+1] and A[mid-1,mid-1].\\Apparently, if A[mid,mid] < A[mid+1,mid+1] and A[mid,mid] < A[mid-1,mid-1], then A[mid,mid] is the pool.\\Else, choose the smaller direction and repeat the steps above.\\
     Recurrence: T(n)=T(n/2)+O(1).\\ Thus T(n)=O(log n).}
-    \part Generalize your algorithms from part (a) and (b) to work for any $m$ and $n$. The running time should \emph{smoothly} interpolate between the running times of (a) and (b).
+    \part Generalize your algorithms from part (a) and (b) to work for any $m$ and $n$. The running time should \emph{smoothly} interpolate between the running times of (a) and (b).\\
     \textbf{Algorithm: Suppose $mid_m$=m//2, $mid_n$=n//2, compare A[$mid_m$,$mid_n$] with A[$ mid_m \pm 1 $,$mid_n$] and A[$mid_m$,$mid_n \pm 1$].\\If A[$mid_m$,$mid_n$] is minimum,then it's the pool.\\Else, choose the smallest direction, and repeat the steps above.\\
     Recurrence: for each step, T(m,n)=T(m/2,n)+O(n) or T(m,n/2)+O(m). Thus T(m,n)=O(m+n).}
 \end{parts}

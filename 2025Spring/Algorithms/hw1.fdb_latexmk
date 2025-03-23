@@ -1,11 +1,11 @@
 # Fdb version 4
-["xdvipdfmx"] 1742743534.32785 "hw1.xdv" "hw1.pdf" "hw1" 1742743534.57083 0
-  "hw1.xdv" 1742743534.31059 53740 3fac16304d8442e8c74cf1b0a49cc2ec "xelatex"
+["xdvipdfmx"] 1742743850.17465 "hw1.xdv" "hw1.pdf" "hw1" 1742743850.39637 0
+  "hw1.xdv" 1742743850.15698 53708 16d7416028e1650d60cbe60d62308881 "xelatex"
   (generated)
   "hw1.pdf"
   (rewritten before read)
-["xelatex"] 1742743534.12068 "/Users/quanjin/Documents/Assignment/2025Spring/Algorithms/hw1.tex" "hw1.xdv" "hw1" 1742743534.57034 0
-  "/Users/quanjin/Documents/Assignment/2025Spring/Algorithms/hw1.tex" 1742743533.94392 7349 40ed48923266a41318a0d0340d571399 ""
+["xelatex"] 1742743849.97183 "/Users/quanjin/Documents/Assignment/2025Spring/Algorithms/hw1.tex" "hw1.xdv" "hw1" 1742743850.39589 0
+  "/Users/quanjin/Documents/Assignment/2025Spring/Algorithms/hw1.tex" 1742743849.88524 7351 a4704c6641eaef8e89634671e7c0d4cb ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1246382020 1120 200be8b775682cdf80acad4be5ef57e4 ""
@@ -60,8 +60,8 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt" 1741659533 5639817 55c5ef18e398a6d754c89a297bfb57aa ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "hw1.aux" 1742743534.3099 1532 b4e88d46028036d39939d2b1e63e609d "xelatex"
-  "hw1.tex" 1742743533.94392 7349 40ed48923266a41318a0d0340d571399 ""
+  "hw1.aux" 1742743850.15654 1532 b4e88d46028036d39939d2b1e63e609d "xelatex"
+  "hw1.tex" 1742743849.88524 7351 a4704c6641eaef8e89634671e7c0d4cb ""
   "oxmathproblems.cls" 1742271786.83221 3223 10f1ee43248ec35e2c4998a008404b31 ""
   (generated)
   "hw1.aux"
